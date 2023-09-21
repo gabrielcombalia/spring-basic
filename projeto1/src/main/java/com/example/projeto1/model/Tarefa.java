@@ -1,20 +1,38 @@
 package com.example.projeto1.model;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "TAREFAS")
 public class Tarefa {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column(name = "Descricao", nullable = false, length = 150)
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     private TarefaStatus status;
 
     private LocalDate dataEntrega;
 
     private Boolean visivel;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private TarefaCategoria categoria;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Usuario usuario;
+
+
 
     public String getDescricao() {
         return descricao;
@@ -54,6 +72,22 @@ public class Tarefa {
 
     public void setCategoria(TarefaCategoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 
